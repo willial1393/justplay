@@ -38,7 +38,9 @@ class _JpButtonState extends State<JpButton> {
           30.h,
         )),
         backgroundColor: MaterialStateProperty.all(
-          widget.backgroundColor ?? JpColors.orange,
+          (widget.backgroundColor ?? JpColors.orange).withOpacity(
+            widget.enabled ? 1 : 0.5,
+          ),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -46,7 +48,10 @@ class _JpButtonState extends State<JpButton> {
         )),
       ),
       child: loading
-          ? const JpLoading()
+          ? JpLoading(
+              color: widget.textColor ?? JpColors.white,
+              size: 20.h,
+            )
           : Text(
               widget.text,
               style: TextStyle(

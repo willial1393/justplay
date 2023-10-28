@@ -10,4 +10,6 @@ abstract class JpColors {
   static Color get white => const Color(0xFFFFFFFF);
 
   static Color get red => const Color(0xFFDD2E2E);
+
+  static Color get green => const Color(0xFF4C964C);
 }

@@ -1,11 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justplay/app/routes/jp_router.dart';
+import 'package:justplay/app/services/notifications.dart';
+import 'package:justplay/app/types/string_extensions.dart';
 import 'package:justplay/app/widgets/inputs/jp_text_input.dart';
 import 'package:justplay/app/widgets/inputs/jp_validators.dart';
 import 'package:justplay/app/widgets/jp_button.dart';
 import 'package:justplay/app/widgets/jp_scaffold.dart';
 import 'package:justplay/app/widgets/jp_tab.dart';
+import 'package:justplay/core/services/i_auth_service.dart';
+import 'package:justplay/injectable.dart';
 
 @RoutePage()
 class OnboardingLoginScreen extends StatefulWidget {
@@ -46,17 +52,21 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
                     label: 'Email:',
                     validator: JpValidators.email,
                     controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 15.h),
                   JpTextInput(
                     label: 'Password:',
                     validator: JpValidators.password,
                     controller: passwordController,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
                   ),
                   SizedBox(height: 15.h),
                   JpButton(
                     text: 'Log In',
                     enabled: loginFormKey.currentState?.validate() ?? false,
+                    onPressed: _login,
                   ),
                   SizedBox(height: 30.h),
                   Text(
@@ -81,12 +91,15 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
                     label: 'Email:',
                     validator: JpValidators.email,
                     controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 15.h),
                   JpTextInput(
                     label: 'Password:',
                     validator: JpValidators.password,
                     controller: passwordController,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
                   ),
                   SizedBox(height: 15.h),
                   JpTextInput(
@@ -104,6 +117,7 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
                   JpButton(
                     text: 'Sign Up',
                     enabled: signUpFormKey.currentState?.validate() ?? false,
+                    onPressed: _register,
                   ),
                 ],
               ),
@@ -112,5 +126,46 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _login() async {
+    try {
+      await getIt<IAuthService>().login(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      JpNotification.success('Login successful');
+      await appRouter.pushAndPopUntil(
+        const ChargingRoute(),
+        predicate: (route) => true,
+      );
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        JpNotification.error(e.code.toCapitalize());
+      } else {
+        JpNotification.error('Unknown error');
+      }
+    }
+  }
+
+  Future<void> _register() async {
+    try {
+      await getIt<IAuthService>().register(
+        name: '${firstNameController.text} ${lastNameController.text}',
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      JpNotification.success('Registration successful');
+      await appRouter.pushAndPopUntil(
+        const ChargingRoute(),
+        predicate: (route) => true,
+      );
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        JpNotification.error(e.code.toCapitalize());
+      } else {
+        JpNotification.error('Unknown error');
+      }
+    }
   }
 }

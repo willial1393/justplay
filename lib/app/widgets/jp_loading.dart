@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:justplay/app/theme/jp_colors.dart';
 
 class JpLoading extends StatelessWidget {
-  const JpLoading({super.key});
+  final Color? color;
+  final double? size;
+
+  const JpLoading({super.key, this.color, this.size});
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      color: JpColors.black,
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CircularProgressIndicator(
+        color: color ?? JpColors.black,
+      ),
     );
   }
 }
