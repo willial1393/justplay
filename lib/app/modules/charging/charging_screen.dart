@@ -22,7 +22,14 @@ class _ChargingScreenState extends ConsumerState<ChargingScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (getIt<IAuthService>().isLoggedIn()) {
-        ref.read(appProvider.notifier).updateUser();
+        final user = await ref.read(appProvider.notifier).updateUser();
+        if (user.country == null || user.state == null || user.city == null) {
+          await appRouter.pushAndPopUntil(
+            const OnboardingCityRoute(),
+            predicate: (route) => true,
+          );
+          return;
+        }
         await appRouter.replace(const HomeRoute());
       } else {
         await appRouter.replace(const OnboardingLoginRoute());

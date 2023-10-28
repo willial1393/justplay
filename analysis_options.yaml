@@ -29,7 +29,7 @@ linter:
     always_use_package_imports: true
     unnecessary_await_in_return: true
     avoid_void_async: false
-    avoid_dynamic_calls: true
+    avoid_dynamic_calls: false
     avoid_empty_else: true
     avoid_print: true
     avoid_slow_async_io: true

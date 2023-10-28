@@ -1,5 +1,7 @@
 import 'package:justplay/core/entities/user.dart';
 
 abstract class IUserService {
-  User currentUser();
+  Future<User> currentUser();
+
+  Future<void> register({required User user});
 }
