@@ -21,9 +21,49 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    avoid_print: false
     prefer_single_quotes: true
     always_put_required_named_parameters_first: true
+    unawaited_futures: true
+    await_only_futures: true
+    always_declare_return_types: true
+    always_use_package_imports: true
+    unnecessary_await_in_return: true
+    avoid_void_async: false
+    avoid_dynamic_calls: true
+    avoid_empty_else: true
+    avoid_print: true
+    avoid_slow_async_io: true
+    avoid_type_to_string: true
+    avoid_types_as_parameter_names: true
+    avoid_web_libraries_in_flutter: true
+    cancel_subscriptions: true
+    close_sinks: true
+    collection_methods_unrelated_type: true
+    comment_references: true
+    control_flow_in_finally: true
+    diagnostic_describe_all_properties: false
+    discarded_futures: true
+    empty_statements: true
+    hash_and_equals: true
+    unsafe_html: true
+    always_specify_types: false
+    use_build_context_synchronously: true
+    use_key_in_widget_constructors: true
+    always_require_non_null_named_parameters: true
+    annotate_overrides: true
+    avoid_annotating_with_dynamic: true
 
+    one_member_abstracts: false
+    only_throw_errors: true
+    package_api_docs: true
+    prefer_final_in_for_each: true
+    prefer_const_declarations: true
+    lines_longer_than_80_chars: true
+    always_put_control_body_on_new_line: true
+    avoid_null_checks_in_equality_operators: true
+    avoid_return_types_on_setters: true
+    avoid_init_to_null: true
+    sort_pub_dependencies: false
+    unnecessary_this: false
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
