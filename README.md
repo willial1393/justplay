@@ -20,3 +20,28 @@ samples, guidance on mobile development, and a full API reference.
 ```bash
    flutter run --dart-define-from-file=config.json
 ```
+
+## Generate code
+
+```bash
+  flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+## Generate app icons
+
+```bash
+  flutter pub get && flutter pub run flutter_launcher_icons
+```
+
+## Generate apk
+
+```bash
+   flutter build apk --dart-define-from-file=config.json
+```
+
+## Generate appbundle
+
+```bash
+   flutter build appbundle --dart-define-from-file=config.json
+```
+
