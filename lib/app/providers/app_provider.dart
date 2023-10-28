@@ -9,10 +9,8 @@ class AppProvider extends StateNotifier<AppState> {
 
   AppProvider({required this.userService}) : super(const AppState());
 
-  Future<User> updateUser() async {
-    final user = await userService.currentUser();
+  void updateUser({required User user}) {
     state = state.copyWith(user: user);
-    return user;
   }
 }
 

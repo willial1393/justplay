@@ -7,14 +7,26 @@ import 'package:justplay/app/theme/jp_colors.dart';
 
 abstract class JpNotification {
   static void success(String message) {
-    _show(message: message, color: JpColors.green);
+    _show(
+      message: message,
+      backgroundColor: JpColors.green,
+      textColor: JpColors.white,
+    );
   }
 
   static void error(String message) {
-    _show(message: message, color: JpColors.red);
+    _show(
+      message: message,
+      backgroundColor: JpColors.red,
+      textColor: JpColors.white,
+    );
   }
 
-  static void _show({required String message, required Color color}) {
+  static void _show({
+    required String message,
+    required Color backgroundColor,
+    required Color textColor,
+  }) {
     unawaited(
       SmartDialog.showToast(
         message,
@@ -25,11 +37,14 @@ abstract class JpNotification {
             children: [
               Container(
                 width: 1.sw,
-                color: color,
+                color: backgroundColor,
                 padding: const EdgeInsets.all(16),
                 child: Center(
                   child: Text(
                     message,
+                    style: TextStyle(
+                      color: textColor,
+                    ),
                   ),
                 ),
               ),

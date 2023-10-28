@@ -9,10 +9,18 @@ class UserService implements IUserService {
   final users = FirebaseFirestore.instance.collection('users');
 
   @override
-  Future<User> currentUser() async {
-    final user = auth.FirebaseAuth.instance.currentUser;
-    final res = await users.doc(user?.uid).get();
-    return User().fromJson(res.data() ?? {});
+  Future<User?> currentUser() async {
+    try {
+      final user = auth.FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        return null;
+      }
+      await user.reload();
+      final res = await users.doc(user.uid).get();
+      return User().fromJson(res.data() ?? {});
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
