@@ -49,6 +49,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  auto_route:
+    dependency: "direct main"
+    description:
+      name: auto_route
+      sha256: "82f8df1d177416bc6b7a449127d0270ff1f0f633a91f2ceb7a85d4f07c3affa1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.8.4"
+  auto_route_generator:
+    dependency: "direct dev"
+    description:
+      name: auto_route_generator
+      sha256: "11067a3bcd643812518fe26c0c9ec073990286cabfd9d74b6da9ef9b913c4d22"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.3.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -217,6 +233,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  double_back_to_close_app:
+    dependency: "direct main"
+    description:
+      name: double_back_to_close_app
+      sha256: d19ce4e2f8d2cb9f35bdbc90eecd5c731cc0e6216f5e8f14e7d1e076dafb344a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -549,6 +573,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  source_gen:
+    dependency: transitive
+    description:
+      name: source_gen
+      sha256: fc0da689e5302edb6177fdd964efcb7f58912f43c28c2047a808f5bfff643d16
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   source_span:
     dependency: transitive
     description:
@@ -679,4 +711,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.1.4 <4.0.0"
-  flutter: ">=3.10.0"
+  flutter: ">=3.13.0"
