@@ -7,7 +7,7 @@ import 'package:justplay/app/widgets/jp_scaffold.dart';
 
 @RoutePage()
 class ChargingScreen extends StatefulWidget {
-  const ChargingScreen({Key? key}) : super(key: key);
+  const ChargingScreen({super.key});
 
   @override
   State<ChargingScreen> createState() => _ChargingScreenState();

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class OnboardingRegisterScreen extends StatelessWidget {
-  const OnboardingRegisterScreen({Key? key}) : super(key: key);
+  const OnboardingRegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

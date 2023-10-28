@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class OnboardingCityScreen extends StatelessWidget {
-  const OnboardingCityScreen({Key? key}) : super(key: key);
+  const OnboardingCityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

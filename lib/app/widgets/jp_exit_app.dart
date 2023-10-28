@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class JpExitApp extends StatelessWidget {
   final Widget child;
 
-  const JpExitApp({Key? key, required this.child}) : super(key: key);
+  const JpExitApp({
+    required this.child,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

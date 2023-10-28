@@ -4,7 +4,7 @@ import 'package:justplay/app/widgets/jp_scaffold.dart';
 
 @RoutePage()
 class OnboardingLoginScreen extends StatelessWidget {
-  const OnboardingLoginScreen({Key? key}) : super(key: key);
+  const OnboardingLoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

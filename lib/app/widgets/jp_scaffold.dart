@@ -4,9 +4,9 @@ class JpScaffold extends StatelessWidget {
   final Widget body;
 
   const JpScaffold({
-    Key? key,
     required this.body,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
