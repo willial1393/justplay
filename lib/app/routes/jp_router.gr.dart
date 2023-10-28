@@ -33,22 +33,16 @@ abstract class _$JpRouter extends RootStackRouter {
         child: const OnboardingCityScreen(),
       );
     },
-    OnboardingCountryRoute.name: (routeData) {
+    OnboardingGameRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const OnboardingCountryScreen(),
+        child: const OnboardingGameScreen(),
       );
     },
     OnboardingLoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const OnboardingLoginScreen(),
-      );
-    },
-    OnboardingRegisterRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const OnboardingRegisterScreen(),
       );
     },
   };
@@ -97,15 +91,15 @@ class OnboardingCityRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OnboardingCountryScreen]
-class OnboardingCountryRoute extends PageRouteInfo<void> {
-  const OnboardingCountryRoute({List<PageRouteInfo>? children})
+/// [OnboardingGameScreen]
+class OnboardingGameRoute extends PageRouteInfo<void> {
+  const OnboardingGameRoute({List<PageRouteInfo>? children})
       : super(
-          OnboardingCountryRoute.name,
+          OnboardingGameRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'OnboardingCountryRoute';
+  static const String name = 'OnboardingGameRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -120,20 +114,6 @@ class OnboardingLoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'OnboardingLoginRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [OnboardingRegisterScreen]
-class OnboardingRegisterRoute extends PageRouteInfo<void> {
-  const OnboardingRegisterRoute({List<PageRouteInfo>? children})
-      : super(
-          OnboardingRegisterRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'OnboardingRegisterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
