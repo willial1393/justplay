@@ -9,10 +9,12 @@ enum OnboardingStatus {
 }
 
 class OnboardingState {
+  final String? game;
   final String? country;
   final String? state;
   final String? city;
 
+  final List<String> games;
   final List<String> countries;
   final List<String> states;
   final List<String> cities;
@@ -23,10 +25,12 @@ class OnboardingState {
     this.country,
     this.state,
     this.city,
+    this.game,
     this.countries = const [],
     this.states = const [],
     this.cities = const [],
     this.status = OnboardingStatus.loadingCountry,
+    this.games = const [],
   });
 
   OnboardingState copyWith({
@@ -36,7 +40,9 @@ class OnboardingState {
     List<String>? countries,
     List<String>? states,
     List<String>? cities,
+    List<String>? games,
     OnboardingStatus? status,
+    String? game,
   }) {
     return OnboardingState(
       country: country ?? this.country,
@@ -46,6 +52,8 @@ class OnboardingState {
       states: states ?? this.states,
       cities: cities ?? this.cities,
       status: status ?? this.status,
+      games: games ?? this.games,
+      game: game ?? this.game,
     );
   }
 }

@@ -3,6 +3,6 @@ import 'package:justplay/app/routes/jp_router.dart';
 
 final onboardingRoutes = [
   AutoRoute(page: OnboardingGameRoute.page),
-  AutoRoute(page: OnboardingCityRoute.page),
+  AutoRoute(page: OnboardingPreferencesRoute.page),
   AutoRoute(page: OnboardingLoginRoute.page),
 ];

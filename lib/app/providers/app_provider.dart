@@ -13,16 +13,18 @@ class AppProvider extends StateNotifier<AppState> {
     state = state.copyWith(user: user);
   }
 
-  Future<void> updateLocation({
-    required String country,
-    required String state,
-    required String city,
+  Future<void> updatePreferences({
+    String? country,
+    String? state,
+    String? city,
+    String? game,
   }) async {
-    final user =  await userService.updateLocation(
+    final user = await userService.updatePreferences(
       uid: this.state.user!.uid!,
       country: country,
       state: state,
       city: city,
+      game: game,
     );
     updateUser(user: user);
   }

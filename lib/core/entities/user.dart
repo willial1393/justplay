@@ -6,6 +6,7 @@ class User {
   String? country;
   String? state;
   String? city;
+  String? game;
 
   User({
     this.uid,
@@ -14,6 +15,7 @@ class User {
     this.country,
     this.state,
     this.city,
+    this.game,
   });
 
   Map<String, String?> toJson() {
@@ -24,6 +26,7 @@ class User {
       'country': country,
       'state': state,
       'city': city,
+      'game': game,
     };
   }
 
@@ -35,6 +38,7 @@ class User {
       country: json['country'],
       state: json['state'],
       city: json['city'],
+      game: json['game'],
     );
   }
 
@@ -45,6 +49,7 @@ class User {
     String? country,
     String? state,
     String? city,
+    String? game,
   }) {
     return User(
       uid: uid ?? this.uid,
@@ -53,6 +58,7 @@ class User {
       country: country ?? this.country,
       state: state ?? this.state,
       city: city ?? this.city,
+      game: game ?? this.game,
     );
   }
 }

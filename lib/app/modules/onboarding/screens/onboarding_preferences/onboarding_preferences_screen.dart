@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:justplay/app/modules/onboarding/screens/onboarding_city/onboarding_provider.dart';
-import 'package:justplay/app/modules/onboarding/screens/onboarding_city/onboarding_state.dart';
+import 'package:justplay/app/modules/onboarding/screens/onboarding_provider.dart';
+import 'package:justplay/app/modules/onboarding/screens/onboarding_state.dart';
 import 'package:justplay/app/providers/app_provider.dart';
 import 'package:justplay/app/routes/jp_router.dart';
 import 'package:justplay/app/services/notifications.dart';
@@ -11,10 +11,11 @@ import 'package:justplay/app/widgets/inputs/jp_dropdown.dart';
 import 'package:justplay/app/widgets/jp_button.dart';
 import 'package:justplay/app/widgets/jp_exit_app.dart';
 import 'package:justplay/app/widgets/jp_scaffold.dart';
+import 'package:justplay/gen/assets.gen.dart';
 
 @RoutePage()
-class OnboardingCityScreen extends ConsumerWidget {
-  const OnboardingCityScreen({super.key});
+class OnboardingPreferencesScreen extends ConsumerWidget {
+  const OnboardingPreferencesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,6 +28,10 @@ class OnboardingCityScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              ClipOval(
+                child: Assets.icon.icon.image(width: 0.5.sw),
+              ),
+              SizedBox(height: 30.h),
               if (onboarding.status == OnboardingStatus.errorCountry)
                 JpButton(
                   text: 'Retry',
@@ -51,6 +56,15 @@ class OnboardingCityScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  JpDropdown(
+                    label: 'Game',
+                    value: onboarding.game,
+                    options: onboarding.games,
+                    onChanged: (String? value) {
+                      ref.read(onboardingProvider.notifier).setGame(value);
+                    },
+                  ),
+                  SizedBox(height: 15.h),
                   JpDropdown(
                     label: 'Country',
                     value: onboarding.country,
@@ -101,7 +115,8 @@ class OnboardingCityScreen extends ConsumerWidget {
   bool _enable({required OnboardingState onboarding}) {
     return (onboarding.country != null &&
         onboarding.state != null &&
-        onboarding.city != null);
+        onboarding.city != null &&
+        onboarding.game != null);
   }
 
   Future<void> _next(WidgetRef ref) async {
@@ -109,9 +124,13 @@ class OnboardingCityScreen extends ConsumerWidget {
       final country = ref.read(onboardingProvider).country;
       final state = ref.read(onboardingProvider).state;
       final city = ref.read(onboardingProvider).city;
-      await ref
-          .read(appProvider.notifier)
-          .updateLocation(country: country!, state: state!, city: city!);
+      final game = ref.read(onboardingProvider).game;
+      await ref.read(appProvider.notifier).updatePreferences(
+            country: country,
+            state: state,
+            city: city,
+            game: game,
+          );
       JpNotification.success('Location updated');
       await appRouter.pushAndPopUntil(
         const HomeRoute(),

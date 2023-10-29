@@ -5,10 +5,11 @@ abstract class IUserService {
 
   Future<void> register({required User user});
 
-  Future<User> updateLocation({
+  Future<User> updatePreferences({
     required String uid,
-    required String country,
-    required String state,
-    required String city,
+    String? country,
+    String? state,
+    String? city,
+    String? game,
   });
 }

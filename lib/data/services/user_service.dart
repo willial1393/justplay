@@ -29,17 +29,19 @@ class UserService implements IUserService {
   }
 
   @override
-  Future<User> updateLocation({
+  Future<User> updatePreferences({
     required String uid,
-    required String country,
-    required String state,
-    required String city,
+    String? country,
+    String? state,
+    String? city,
+    String? game,
   }) async {
     final res = await users.doc(uid).get();
     final user = User().fromJson(res.data() ?? {});
     user.country = country;
     user.state = state;
     user.city = city;
+    user.game = game;
     await users.doc(uid).update(user.toJson());
     return user;
   }

@@ -27,12 +27,6 @@ abstract class _$JpRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
-    OnboardingCityRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const OnboardingCityScreen(),
-      );
-    },
     OnboardingGameRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -43,6 +37,12 @@ abstract class _$JpRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const OnboardingLoginScreen(),
+      );
+    },
+    OnboardingPreferencesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const OnboardingPreferencesScreen(),
       );
     },
   };
@@ -77,20 +77,6 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OnboardingCityScreen]
-class OnboardingCityRoute extends PageRouteInfo<void> {
-  const OnboardingCityRoute({List<PageRouteInfo>? children})
-      : super(
-          OnboardingCityRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'OnboardingCityRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [OnboardingGameScreen]
 class OnboardingGameRoute extends PageRouteInfo<void> {
   const OnboardingGameRoute({List<PageRouteInfo>? children})
@@ -114,6 +100,20 @@ class OnboardingLoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'OnboardingLoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OnboardingPreferencesScreen]
+class OnboardingPreferencesRoute extends PageRouteInfo<void> {
+  const OnboardingPreferencesRoute({List<PageRouteInfo>? children})
+      : super(
+          OnboardingPreferencesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OnboardingPreferencesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:justplay/app/modules/onboarding/screens/onboarding_city/onboarding_provider.dart';
+import 'package:justplay/app/modules/onboarding/screens/onboarding_provider.dart';
 import 'package:justplay/app/providers/app_provider.dart';
 import 'package:justplay/app/routes/jp_router.dart';
 import 'package:justplay/app/services/notifications.dart';
@@ -62,10 +62,13 @@ class _ChargingScreenState extends ConsumerState<ChargingScreen> {
       final user = await getIt<IUserService>().currentUser();
       if (user != null) {
         ref.read(appProvider.notifier).updateUser(user: user);
-        if (user.country == null || user.state == null || user.city == null) {
+        if (user.country == null ||
+            user.state == null ||
+            user.city == null ||
+            user.game == null) {
           await ref.read(onboardingProvider.notifier).fetchCountries();
           await appRouter.pushAndPopUntil(
-            const OnboardingCityRoute(),
+            const OnboardingPreferencesRoute(),
             predicate: (route) => true,
           );
           return;
