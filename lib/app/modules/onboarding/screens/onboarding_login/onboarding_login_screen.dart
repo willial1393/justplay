@@ -8,6 +8,7 @@ import 'package:justplay/app/types/string_extensions.dart';
 import 'package:justplay/app/widgets/inputs/jp_text_input.dart';
 import 'package:justplay/app/widgets/inputs/jp_validators.dart';
 import 'package:justplay/app/widgets/jp_button.dart';
+import 'package:justplay/app/widgets/jp_exit_app.dart';
 import 'package:justplay/app/widgets/jp_scaffold.dart';
 import 'package:justplay/app/widgets/jp_tab.dart';
 import 'package:justplay/core/services/i_auth_service.dart';
@@ -32,97 +33,99 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return JpScaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: JpTab(
-          tabs: const [
-            'Log In',
-            'Sign Up',
-          ],
-          views: [
-            Form(
-              key: loginFormKey,
-              onChanged: () {
-                setState(() {});
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  JpTextInput(
-                    label: 'Email:',
-                    validator: JpValidators.email,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'Password:',
-                    validator: JpValidators.password,
-                    controller: passwordController,
-                    obscureText: true,
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpButton(
-                    text: 'Log In',
-                    enabled: loginFormKey.currentState?.validate() ?? false,
-                    onPressed: _login,
-                  ),
-                  SizedBox(height: 30.h),
-                  Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      decoration: TextDecoration.underline,
+      body: JpExitApp(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: JpTab(
+            tabs: const [
+              'Log In',
+              'Sign Up',
+            ],
+            views: [
+              Form(
+                key: loginFormKey,
+                onChanged: () {
+                  setState(() {});
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    JpTextInput(
+                      label: 'Email:',
+                      validator: JpValidators.email,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                     ),
-                  ),
-                ],
+                    SizedBox(height: 15.h),
+                    JpTextInput(
+                      label: 'Password:',
+                      validator: JpValidators.password,
+                      controller: passwordController,
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                    ),
+                    SizedBox(height: 15.h),
+                    JpButton(
+                      text: 'Log In',
+                      enabled: loginFormKey.currentState?.validate() ?? false,
+                      onPressed: _login,
+                    ),
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Form(
-              key: signUpFormKey,
-              onChanged: () {
-                setState(() {});
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  JpTextInput(
-                    label: 'Email:',
-                    validator: JpValidators.email,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'Password:',
-                    validator: JpValidators.password,
-                    controller: passwordController,
-                    obscureText: true,
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'First Name:',
-                    validator: JpValidators.name,
-                    controller: firstNameController,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'Last Name:',
-                    validator: JpValidators.name,
-                    controller: lastNameController,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpButton(
-                    text: 'Sign Up',
-                    enabled: signUpFormKey.currentState?.validate() ?? false,
-                    onPressed: _register,
-                  ),
-                ],
+              Form(
+                key: signUpFormKey,
+                onChanged: () {
+                  setState(() {});
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    JpTextInput(
+                      label: 'Email:',
+                      validator: JpValidators.email,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 15.h),
+                    JpTextInput(
+                      label: 'Password:',
+                      validator: JpValidators.password,
+                      controller: passwordController,
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                    ),
+                    SizedBox(height: 15.h),
+                    JpTextInput(
+                      label: 'First Name:',
+                      validator: JpValidators.name,
+                      controller: firstNameController,
+                    ),
+                    SizedBox(height: 15.h),
+                    JpTextInput(
+                      label: 'Last Name:',
+                      validator: JpValidators.name,
+                      controller: lastNameController,
+                    ),
+                    SizedBox(height: 15.h),
+                    JpButton(
+                      text: 'Sign Up',
+                      enabled: signUpFormKey.currentState?.validate() ?? false,
+                      onPressed: _register,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

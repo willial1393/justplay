@@ -12,6 +12,20 @@ class AppProvider extends StateNotifier<AppState> {
   void updateUser({required User user}) {
     state = state.copyWith(user: user);
   }
+
+  Future<void> updateLocation({
+    required String country,
+    required String state,
+    required String city,
+  }) async {
+    final user =  await userService.updateLocation(
+      uid: this.state.user!.uid!,
+      country: country,
+      state: state,
+      city: city,
+    );
+    updateUser(user: user);
+  }
 }
 
 final appProvider = StateNotifierProvider<AppProvider, AppState>((ref) {

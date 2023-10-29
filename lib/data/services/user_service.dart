@@ -27,4 +27,20 @@ class UserService implements IUserService {
   Future<void> register({required User user}) {
     return users.doc(user.uid).set(user.toJson());
   }
+
+  @override
+  Future<User> updateLocation({
+    required String uid,
+    required String country,
+    required String state,
+    required String city,
+  }) async {
+    final res = await users.doc(uid).get();
+    final user = User().fromJson(res.data() ?? {});
+    user.country = country;
+    user.state = state;
+    user.city = city;
+    await users.doc(uid).update(user.toJson());
+    return user;
+  }
 }

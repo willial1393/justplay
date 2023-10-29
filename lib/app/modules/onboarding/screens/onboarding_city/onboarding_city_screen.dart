@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justplay/app/modules/onboarding/screens/onboarding_city/onboarding_provider.dart';
 import 'package:justplay/app/modules/onboarding/screens/onboarding_city/onboarding_state.dart';
+import 'package:justplay/app/providers/app_provider.dart';
+import 'package:justplay/app/routes/jp_router.dart';
+import 'package:justplay/app/services/notifications.dart';
 import 'package:justplay/app/widgets/inputs/jp_dropdown.dart';
 import 'package:justplay/app/widgets/jp_button.dart';
 import 'package:justplay/app/widgets/jp_exit_app.dart';
@@ -67,7 +70,7 @@ class OnboardingCityScreen extends ConsumerWidget {
                     options: onboarding.states,
                     loading: onboarding.status == OnboardingStatus.loadingState,
                     onChanged: (String? value) {
-                        ref.read(onboardingProvider.notifier).setState(value);
+                      ref.read(onboardingProvider.notifier).setState(value);
                     },
                   ),
                   SizedBox(height: 15.h),
@@ -77,13 +80,13 @@ class OnboardingCityScreen extends ConsumerWidget {
                     options: onboarding.cities,
                     loading: onboarding.status == OnboardingStatus.loadingCity,
                     onChanged: (String? value) {
-                        ref.read(onboardingProvider.notifier).setCity(value);
+                      ref.read(onboardingProvider.notifier).setCity(value);
                     },
                   ),
                   SizedBox(height: 15.h),
                   JpButton(
                     text: 'Next',
-                    onPressed: _next,
+                    onPressed: () async => _next(ref),
                     enabled: _enable(onboarding: onboarding),
                   ),
                 ],
@@ -101,5 +104,21 @@ class OnboardingCityScreen extends ConsumerWidget {
         onboarding.city != null);
   }
 
-  Future<void> _next() async {}
+  Future<void> _next(WidgetRef ref) async {
+    try {
+      final country = ref.read(onboardingProvider).country;
+      final state = ref.read(onboardingProvider).state;
+      final city = ref.read(onboardingProvider).city;
+      await ref
+          .read(appProvider.notifier)
+          .updateLocation(country: country!, state: state!, city: city!);
+      JpNotification.success('Location updated');
+      await appRouter.pushAndPopUntil(
+        const HomeRoute(),
+        predicate: (route) => true,
+      );
+    } catch (e) {
+      JpNotification.error('Something went wrong');
+    }
+  }
 }

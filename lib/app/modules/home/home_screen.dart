@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justplay/app/routes/jp_router.dart';
 import 'package:justplay/app/widgets/jp_button.dart';
 import 'package:justplay/app/widgets/jp_exit_app.dart';
@@ -16,10 +17,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return JpScaffold(
       body: JpExitApp(
-        child: Center(
+        child: Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Hello World'),
+              SizedBox(height: 20.h),
               JpButton(
                 text: 'Close session',
                 onPressed: () async => _logout(context),
