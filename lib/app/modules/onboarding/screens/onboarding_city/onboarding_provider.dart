@@ -12,16 +12,28 @@ class OnboardingProvider extends StateNotifier<OnboardingState> {
   OnboardingProvider({required this.countryService}) : super(OnboardingState());
 
   void setCountry(String country) {
-    state = state.copyWith(country: country, state: null, city: null);
+    state = state.copyWith(
+      country: country,
+      state: () => null,
+      city: () => null,
+      states: [],
+      cities: [],
+    );
     unawaited(fetchStates(country: country));
   }
 
-  void setState(String state) {
-    this.state = this.state.copyWith(state: () => state, city: null);
-    unawaited(fetchCities(state: state));
+  void setState(String? state) {
+    this.state = this.state.copyWith(
+      state: () => state,
+      city: () => null,
+      cities: [],
+    );
+    if (state != null) {
+      unawaited(fetchCities(state: state));
+    }
   }
 
-  void setCity(String city) {
+  void setCity(String? city) {
     state = state.copyWith(city: () => city);
   }
 
@@ -61,7 +73,7 @@ class OnboardingProvider extends StateNotifier<OnboardingState> {
       this.state = this.state.copyWith(status: OnboardingStatus.loadingCity);
       final cities = await countryService.getCities(stateName: state);
       this.state = this.state.copyWith(
-            cities: cities,
+            cities: cities.isEmpty ? [state] : cities,
             status: OnboardingStatus.success,
           );
     } catch (e) {

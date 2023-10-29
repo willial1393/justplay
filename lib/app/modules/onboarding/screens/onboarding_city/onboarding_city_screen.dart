@@ -67,9 +67,7 @@ class OnboardingCityScreen extends ConsumerWidget {
                     options: onboarding.states,
                     loading: onboarding.status == OnboardingStatus.loadingState,
                     onChanged: (String? value) {
-                      if (value != null) {
                         ref.read(onboardingProvider.notifier).setState(value);
-                      }
                     },
                   ),
                   SizedBox(height: 15.h),
@@ -79,13 +77,15 @@ class OnboardingCityScreen extends ConsumerWidget {
                     options: onboarding.cities,
                     loading: onboarding.status == OnboardingStatus.loadingCity,
                     onChanged: (String? value) {
-                      if (value != null) {
                         ref.read(onboardingProvider.notifier).setCity(value);
-                      }
                     },
                   ),
                   SizedBox(height: 15.h),
-                  JpButton(text: 'Next', onPressed: _next),
+                  JpButton(
+                    text: 'Next',
+                    onPressed: _next,
+                    enabled: _enable(onboarding: onboarding),
+                  ),
                 ],
               ),
             ],
@@ -93,6 +93,12 @@ class OnboardingCityScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  bool _enable({required OnboardingState onboarding}) {
+    return (onboarding.country != null &&
+        onboarding.state != null &&
+        onboarding.city != null);
   }
 
   Future<void> _next() async {}
