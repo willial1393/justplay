@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:justplay/app/modules/onboarding/screens/onboarding_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justplay/app/modules/onboarding/onboarding_provider.dart';
 import 'package:justplay/app/providers/app_provider.dart';
 import 'package:justplay/app/routes/jp_router.dart';
 import 'package:justplay/app/services/notifications.dart';
-import 'package:justplay/app/widgets/jp_button.dart';
-import 'package:justplay/app/widgets/jp_loading.dart';
+import 'package:justplay/app/widgets/jp_retry.dart';
 import 'package:justplay/app/widgets/jp_scaffold.dart';
 import 'package:justplay/core/services/i_user_service.dart';
+import 'package:justplay/gen/assets.gen.dart';
 import 'package:justplay/injectable.dart';
 
 @RoutePage()
@@ -36,15 +37,15 @@ class _ChargingScreenState extends ConsumerState<ChargingScreen> {
   @override
   Widget build(BuildContext context) {
     return JpScaffold(
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.all(30.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (loading) const JpLoading(),
+            if (loading) Assets.animations.loading.lottie(width: 0.8.sw),
             if (error)
-              JpButton(
-                text: 'Retry',
+              JpRetry(
                 onPressed: _fetchCharging,
               ),
           ],

@@ -27,6 +27,12 @@ abstract class _$JpRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
+    OnboardingCongratulationsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const OnboardingCongratulationsScreen(),
+      );
+    },
     OnboardingGameRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -72,6 +78,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OnboardingCongratulationsScreen]
+class OnboardingCongratulationsRoute extends PageRouteInfo<void> {
+  const OnboardingCongratulationsRoute({List<PageRouteInfo>? children})
+      : super(
+          OnboardingCongratulationsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OnboardingCongratulationsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

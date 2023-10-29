@@ -5,4 +5,5 @@ final onboardingRoutes = [
   AutoRoute(page: OnboardingGameRoute.page),
   AutoRoute(page: OnboardingPreferencesRoute.page),
   AutoRoute(page: OnboardingLoginRoute.page),
+  AutoRoute(page: OnboardingCongratulationsRoute.page),
 ];

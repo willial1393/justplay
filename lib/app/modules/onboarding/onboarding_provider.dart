@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:justplay/app/modules/onboarding/screens/onboarding_state.dart';
+import 'package:justplay/app/modules/onboarding/onboarding_state.dart';
 import 'package:justplay/app/providers/app_provider.dart';
 import 'package:justplay/app/services/notifications.dart';
 import 'package:justplay/core/entities/user.dart';
