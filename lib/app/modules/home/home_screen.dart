@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
     return JpScaffold(
       body: JpExitApp(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -37,6 +37,10 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _logout(BuildContext context) async {
     await getIt<IAuthService>().logout();
+    await appRouter.pushAndPopUntil(
+      const ChargingRoute(),
+      predicate: (route) => true,
+    );
     Phoenix.rebirth(appRouter.navigatorKey.currentContext!);
   }
 }
