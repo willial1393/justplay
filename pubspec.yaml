@@ -53,6 +53,8 @@ dependencies:
   flutter_phoenix: ^1.1.1
   lottie: ^2.7.0
   animate_do: ^3.1.2
+  flutter_cache_manager: ^3.3.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

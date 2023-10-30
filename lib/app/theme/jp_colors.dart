@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 abstract class JpColors {
+  static Color get grey => const Color(0xFFA3A3A3);
   static Color get black => const Color(0xFF151515);
 
   static Color get blackLight => const Color(0xFF636262);

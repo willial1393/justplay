@@ -11,6 +11,7 @@ abstract class JpNotification {
       message: message,
       backgroundColor: JpColors.green,
       textColor: JpColors.white,
+      icon: CupertinoIcons.check_mark_circled,
     );
   }
 
@@ -19,6 +20,7 @@ abstract class JpNotification {
       message: message,
       backgroundColor: JpColors.red,
       textColor: JpColors.white,
+      icon: CupertinoIcons.clear_circled,
     );
   }
 
@@ -26,6 +28,7 @@ abstract class JpNotification {
     required String message,
     required Color backgroundColor,
     required Color textColor,
+    required IconData icon,
   }) {
     unawaited(
       SmartDialog.showToast(
@@ -39,13 +42,22 @@ abstract class JpNotification {
                 width: 1.sw,
                 color: backgroundColor,
                 padding: const EdgeInsets.all(16),
-                child: Center(
-                  child: Text(
-                    message,
-                    style: TextStyle(
+                child: Row(
+                  children: [
+                    SizedBox(width: 10.w),
+                    Icon(
+                      icon,
                       color: textColor,
+                      size: 20.sp,
                     ),
-                  ),
+                    SizedBox(width: 10.w),
+                    Text(
+                      message,
+                      style: TextStyle(
+                        color: textColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 20.h),
