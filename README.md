@@ -17,7 +17,12 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Run app
 
+Install flutter 3.13.8 or higher
+
+
 add the [config.json](config.json) file to the root of the project
+
+
 ```bash
    flutter run --dart-define-from-file=config.json
 ```
