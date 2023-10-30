@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Run app
 
+add the [config.json](config.json) file to the root of the project
 ```bash
    flutter run --dart-define-from-file=config.json
 ```
@@ -45,3 +46,15 @@ samples, guidance on mobile development, and a full API reference.
    flutter build appbundle --dart-define-from-file=config.json
 ```
 
+## Documentation
+
+The architecture of the app is based on the clean architecture principles.
+The dependency injection is [get_it](https://pub.dev/packages/get_it)
+The active directory is [firebase_auth](https://pub.dev/packages/firebase_auth)
+The database is  [cloud_firestore](https://pub.dev/packages/cloud_firestore)
+The analytics is  [firebase_analytics](https://pub.dev/packages/firebase_analytics)
+The record errors is  [firebase_crashlytics](https://pub.dev/packages/firebase_crashlytics)
+The cache is  [flutter_cache_manager](https://pub.dev/packages/flutter_cache_manager)
+The state management is  [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) package.
+The animations are built using the [lottie](https://pub.dev/packages/lottie) package.
+The api used for get country [www.universal-tutorial.com](https://www.universal-tutorial.com/rest-apis/free-rest-api-for-country-state-city)

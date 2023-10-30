@@ -8,6 +8,7 @@ import 'package:justplay/app/types/string_extensions.dart';
 import 'package:justplay/app/widgets/inputs/jp_text_input.dart';
 import 'package:justplay/app/widgets/inputs/jp_validators.dart';
 import 'package:justplay/app/widgets/jp_button.dart';
+import 'package:justplay/app/widgets/jp_loading.dart';
 import 'package:justplay/app/widgets/jp_scaffold.dart';
 import 'package:justplay/app/widgets/jp_tab.dart';
 import 'package:justplay/core/services/i_auth_service.dart';
@@ -29,12 +30,14 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
   final signUpFormKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
 
+  bool sendingEmail = false;
+
   @override
   Widget build(BuildContext context) {
     return JpScaffold(
       preventExitApp: true,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: JpTab(
           tabs: const [
             'Log In',
@@ -70,58 +73,73 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
                     onPressed: _login,
                   ),
                   SizedBox(height: 30.h),
-                  Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      decoration: TextDecoration.underline,
+                  if (sendingEmail)
+                    const JpLoading()
+                  else
+                    GestureDetector(
+                      onTap: _forgotPassword,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
-            Form(
-              key: signUpFormKey,
-              onChanged: () {
-                setState(() {});
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  JpTextInput(
-                    label: 'Email:',
-                    validator: JpValidators.email,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
+            Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: signUpFormKey,
+                      onChanged: () {
+                        setState(() {});
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 15.h),
+                          JpTextInput(
+                            label: 'Email:',
+                            validator: JpValidators.email,
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          SizedBox(height: 15.h),
+                          JpTextInput(
+                            label: 'Password:',
+                            validator: JpValidators.password,
+                            controller: passwordController,
+                            obscureText: true,
+                            keyboardType: TextInputType.visiblePassword,
+                          ),
+                          SizedBox(height: 15.h),
+                          JpTextInput(
+                            label: 'First Name:',
+                            validator: JpValidators.name,
+                            controller: firstNameController,
+                          ),
+                          SizedBox(height: 15.h),
+                          JpTextInput(
+                            label: 'Last Name:',
+                            validator: JpValidators.name,
+                            controller: lastNameController,
+                          ),
+                          SizedBox(height: 15.h),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'Password:',
-                    validator: JpValidators.password,
-                    controller: passwordController,
-                    obscureText: true,
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'First Name:',
-                    validator: JpValidators.name,
-                    controller: firstNameController,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpTextInput(
-                    label: 'Last Name:',
-                    validator: JpValidators.name,
-                    controller: lastNameController,
-                  ),
-                  SizedBox(height: 15.h),
-                  JpButton(
-                    text: 'Sign Up',
-                    enabled: signUpFormKey.currentState?.validate() ?? false,
-                    onPressed: _register,
-                  ),
-                ],
-              ),
+                ),
+                JpButton(
+                  text: 'Sign Up',
+                  enabled: signUpFormKey.currentState?.validate() ?? false,
+                  onPressed: _register,
+                ),
+              ],
             ),
           ],
         ),
@@ -131,11 +149,11 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
 
   Future<void> _login() async {
     try {
+      FocusScope.of(context).unfocus();
       await getIt<IAuthService>().login(
         email: emailController.text,
         password: passwordController.text,
       );
-      JpNotification.success('Login successful');
       await appRouter.pushAndPopUntil(
         const ChargingRoute(),
         predicate: (route) => true,
@@ -151,6 +169,7 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
 
   Future<void> _register() async {
     try {
+      FocusScope.of(context).unfocus();
       await getIt<IAuthService>().register(
         name: '${firstNameController.text} ${lastNameController.text}',
         email: emailController.text,
@@ -161,6 +180,24 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
         const ChargingRoute(),
         predicate: (route) => true,
       );
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        JpNotification.error(e.code.toCapitalize());
+      } else {
+        JpNotification.error('Unknown error');
+      }
+    }
+  }
+
+  Future<void> _forgotPassword() async {
+    if (emailController.text.isEmpty ||
+        JpValidators.email(emailController.text) != null) {
+      JpNotification.error('Insert a valid email');
+    }
+    try {
+      await getIt<IAuthService>()
+          .sendPasswordResetEmail(email: emailController.text);
+      JpNotification.success('Password reset email sent');
     } catch (e) {
       if (e is FirebaseAuthException) {
         JpNotification.error(e.code.toCapitalize());

@@ -51,4 +51,9 @@ class AuthService implements IAuthService {
     );
     await user.user!.updateDisplayName(name);
   }
+
+  @override
+  Future<void> sendPasswordResetEmail({required String email}) {
+    return auth.FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }

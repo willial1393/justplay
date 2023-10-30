@@ -13,4 +13,6 @@ abstract class IAuthService {
   Future<void> logout();
 
   bool isLoggedIn();
+
+  Future<void> sendPasswordResetEmail({required String email});
 }
