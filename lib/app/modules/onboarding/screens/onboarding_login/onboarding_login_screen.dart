@@ -193,7 +193,12 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
     if (emailController.text.isEmpty ||
         JpValidators.email(emailController.text) != null) {
       JpNotification.error('Insert a valid email');
+      return;
     }
+
+    setState(() {
+      sendingEmail = true;
+    });
     try {
       await getIt<IAuthService>()
           .sendPasswordResetEmail(email: emailController.text);
@@ -204,6 +209,10 @@ class _OnboardingLoginScreenState extends State<OnboardingLoginScreen> {
       } else {
         JpNotification.error('Unknown error');
       }
+    } finally {
+      setState(() {
+        sendingEmail = false;
+      });
     }
   }
 }
